@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games WDPT6</title>
+
+    <th-block th:replace="~{ fragments/head :: styles }"></th-block>
+</head>
+<body>
+
+    <header>
+        <nav th:replace="~{ fragments/navbar :: navbar }"></nav>
+    </header>
+
+    <main class="container">
+        <section class="upper row">
+            <div class="col-12 text-center">
+                <h1 class="fw-bold">
+                    Games creation page
+                </h1>
+            </div>
+        </section>
+        <section class="games-content">
+            <div class="col-12">
+                <h2 class="text-center mb-3">
+                    You are adding a new game
+                </h2>
+            </div>
+
+            <div class="col-12">
+                <form th:action="@{/games}" method="POST" th:object="${game}">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title:</label>
+                        <input type="text" class="form-control" id="title" th:field="*{title}" th:errorClass="is-invalid" required>
+
+                        <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback" >
+                            <ul>
+                                <li th:each="error : ${#fields.errors('title')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="developer" class="form-label">Developer:</label>
+                        <input type="text" class="form-control" id="developer" th:field="*{developer}" th:errorClass="is-invalid" required>
+
+                        <div th:if="${#fields.hasErrors('developer')}" class="invalid-feedback" >
+                            <ul>
+                                <li th:each="error : ${#fields.errors('developer')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="releaseDate" class="form-label">Release Date:</label>
+                        <input type="date" class="form-control" id="releaseDate" th:field="*{releaseDate}" th:errorClass="is-invalid" required>
+
+                        <div th:if="${#fields.hasErrors('releaseDate')}" class="invalid-feedback" >
+                            <ul>
+                                <li th:each="error : ${#fields.errors('releaseDate')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="genre" class="form-label">Genre:</label>
+                        <input type="text" class="form-control" id="genre" th:field="*{genre}" th:errorClass="is-invalid" required>
+
+                        <div th:if="${#fields.hasErrors('genre')}" class="invalid-feedback" >
+                            <ul>
+                                <li th:each="error : ${#fields.errors('genre')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imageUrl" class="form-label">Image URL:</label>
+                        <input type="text" class="form-control" id="imageUrl" th:field="*{imageUrl}" th:errorClass="is-invalid" required>
+
+                        <div th:if="${#fields.hasErrors('imageUrl')}" class="invalid-feedback" >
+                            <ul>
+                                <li th:each="error : ${#fields.errors('imageUrl')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price:</label>
+                        <input type="number" class="form-control" id="price" th:field="*{price}" min="0" max="999" th:errorClass="is-invalid" required>
+
+                        <div th:if="${#fields.hasErrors('price')}" class="invalid-feedback" >
+                            <ul>
+                                <li th:each="error : ${#fields.errors('price')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea type="text" class="form-control" id="description" th:field="*{description}" rows="4" th:errorClass="is-invalid" required></textarea>
+
+                        <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback" >
+                            <ul>
+                                <li th:each="error : ${#fields.errors('description')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <button class="btn btn-primary" type="submit">Add new game</button>
+                        <button class="btn btn-warning" type="reset">Reset fields</button>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games WDPT6</title>
+
+    <th-block th:replace="~{ fragments/head :: styles }"></th-block>
+</head>
+<body>
+
+    <header>
+        <nav th:replace="~{ fragments/navbar :: navbar }"></nav>
+    </header>
+
+    <main class="container">
+        <section class="upper row">
+            <div class="col-12 text-center">
+                <h1 class="fw-bold">
+                   [[${game.title}]]
+                </h1>
+            </div>
+        </section>
+        <section class="games-content">
+            <div class="col-12">
+                <div class="card-img-top text-center py-4">
+                    <img th:src="${game.imageUrl}" alt="">
+                </div>
+                <h2 class="text-center mb-3">
+                    You are viewing [[${game.title}]] details page
+                </h2>
+            </div>
+
+            <div class="col-12">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Developer</th>
+                            <th>Genre</th>
+                            <th>Release Date</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:object="${game}">
+                            <td th:text="*{id}"/>
+                            <td th:text="*{title}"/>
+                            <td th:text="*{developer}"/>
+                            <td th:text="*{genre}"/>
+                            <td th:text="*{releaseDate}"/>
+                            <td th:text="*{price}"/>
+                          
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+</body>
+</html>

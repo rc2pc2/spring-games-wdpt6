@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games WDPT6</title>
+
+    <th-block th:replace="~{ fragments/head :: styles }"></th-block>
+</head>
+<body>
+
+    <header>
+        <nav th:replace="~{ fragments/navbar :: navbar }"></nav>
+    </header>
+
+    <main class="container">
+        <section class="row">
+            <div class="col-12 text-center">
+                <h1 class="fw-bold">
+                    Homepage of Games WDPT6
+                </h1>
+            </div>
+        </section>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+</body>
+</html>

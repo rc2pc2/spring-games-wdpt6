@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games WDPT6</title>
+
+    <th-block th:replace="~{ fragments/head :: styles }"></th-block>
+</head>
+
+<body>
+
+    <header>
+        <nav th:replace="~{ fragments/navbar :: navbar }"></nav>
+    </header>
+
+    <main class="container">
+        <section class="upper row">
+            <div class="col-12 text-center">
+                <h1 class="fw-bold">
+                    Games index
+                </h1>
+            </div>
+        </section>
+        <section class="games-content">
+            <div class="col-12">
+                <h2 class="text-center mb-3">
+                    You have [[${games.size()}]] games available to be seen
+                </h2>
+                <div class="buttons mb-4 px-2 d-flex justify-content-between">
+                    <a th:href="@{/games/create}" class="btn btn-lg btn-primary">Add a new game</a>
+
+                    <div class="input-group w-25">
+                        <input type="text" class="form-control" placeholder="Game to be searched"
+                            aria-label="Game to be searched" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12">
+                <table class="table table-hover table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Developer</th>
+                            <th>Genre</th>
+                            <th>Release Date</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="game : ${games}" th:object="${game}">
+                            <td th:text="*{id}" />
+                            <td th:text="*{title}" />
+                            <td th:text="*{developer}" />
+                            <td th:text="*{genre}" />
+                            <td th:text="*{releaseDate}" />
+                            <td th:text="*{price}" />
+                            <td>
+                                <a th:href="@{/games/{id}(id=*{id})}" class="btn btn-sm btn-primary">Show</a>
+                                <a th:href="@{/games/{id}/edit(id=*{id})}" class="btn btn-sm btn-success">Edit</a>
+                                <!-- * Il BOTTONE che triggera la modale -->
+                                <button type="button" class="d-inline btn btn-warning btn-sm" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + *{id}">
+                                    Delete
+                                </button>
+
+                                <!-- La modale nascosta che appare solo quando viene cliccato il bottone relativo -->
+                                <div class="modal fade" th:id="'delete-modal-' + *{id}" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Deletion of
+                                                    <strong>"[[*{title}]]"</strong></h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>
+                                                    Are you sure that you want to remove <strong>"[[*{title}]]"</strong>, developed by <em>[[*{developer}]]</em>
+                                                    and id: [[*{id}]]
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <form th:action="@{|/games/*{id}/delete|}" method="post"
+                                                    class="d-inline">
+                                                    <button type="submit" class="btn btn-danger btn">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}">
+    </footer>
+</body>
+
+</html>
