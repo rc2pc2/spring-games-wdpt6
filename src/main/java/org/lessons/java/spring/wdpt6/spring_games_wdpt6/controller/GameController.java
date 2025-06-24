@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 
@@ -22,8 +23,14 @@ public class GameController {
     private GameRepository gameRepository;
 
     @GetMapping
-    public String index(Model model){
-        model.addAttribute("games", gameRepository.findAll());
+    public String index(Model model, @RequestParam(name = "query", required = false) String query){
+
+        if (query != null && !query.isEmpty() && !query.isBlank()){
+            model.addAttribute("games", gameRepository.findByTitleContainingIgnoreCase(query));
+        } else {
+            model.addAttribute("games", gameRepository.findAll());
+        }
+
         return "games/index";
     }
 
