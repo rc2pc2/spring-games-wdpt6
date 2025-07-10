@@ -2,6 +2,8 @@ package org.lessons.java.spring.wdpt6.spring_games_wdpt6.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class PublisherHouse {
     private String name;
 
     @OneToMany(mappedBy = "publisherHouse")
+    @JsonBackReference
     private Set<Game> games;
 
     public Integer getId() {
