@@ -21,8 +21,14 @@ public class GameRestController {
     private GameRepository gameRepository;
 
     @GetMapping
-    public List<Game> index(){
-        return gameRepository.findAll();
+    public ResponseEntity<List<Game>> index(){
+
+        List<Game> games = gameRepository.findAll();
+
+        if (games.size() == 0) {
+            return new ResponseEntity<List<Game>>(games, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Game>>(games, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
