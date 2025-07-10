@@ -1,12 +1,17 @@
 package org.lessons.java.spring.wdpt6.spring_games_wdpt6.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -46,6 +51,33 @@ public class Game {
     @NotNull(message = "Price cannot be null")
     private float price;
 
+    @ManyToOne
+    @JoinColumn(name = "publisher_house_id", nullable = false)
+    private PublisherHouse publisherHouse;
+
+    @ManyToMany
+    @JoinTable(
+        name = "game_platform",
+        joinColumns = @JoinColumn(name = "game_id"),
+        inverseJoinColumns = @JoinColumn(name = "platform_id")
+    )
+    private Set<Platform> platforms;
+
+    public Set<Platform> getPlatforms() {
+        return this.platforms;
+    }
+
+    public void setPlatforms(Set<Platform> platforms) {
+        this.platforms = platforms;
+    }
+
+    public PublisherHouse getPublisherHouse() {
+        return this.publisherHouse;
+    }
+
+    public void setPublisherHouse(PublisherHouse publisherHouse) {
+        this.publisherHouse = publisherHouse;
+    }
 
     public float getPrice() {
         return this.price;
